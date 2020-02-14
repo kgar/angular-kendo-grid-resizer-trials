@@ -7,13 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { FormsModule } from '@angular/forms';
 import { InputsModule } from '@progress/kendo-angular-inputs';
+import { AutoResizeKendoGridDirective } from './app-auto-resize-kendo-grid.directive';
 
 
 
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AutoResizeKendoGridDirective],
   imports: [BrowserModule, ButtonsModule, BrowserAnimationsModule, GridModule, FormsModule, InputsModule],
   providers: [BrowserModule],
   bootstrap: [AppComponent],

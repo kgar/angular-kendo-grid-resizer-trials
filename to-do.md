@@ -1,9 +1,14 @@
 # To Do
-- Create a directive to attach to the grid called autoResizeKendoGrid
-- Inject RemainingHeightCalculator into the directive
 - Add a public resize() function to the directive that uses the service to get the proposed height and resize
+- Add Height input and Set Height button to arbitrarily change grid height
 - Only allow resize() to work once ngAfterViewInit has fired
 - Provide an options object parameter for the directive
   - debounceDuration?: number = 300
   - resizeWithWindow?: boolean = true
   - resizeAfterInit?: boolean = true
+- Test and verify that HostListener is not going to keep re-subscribing each time the 
+- Does the height calculator account for content being display: none?
+- Does the height calculator account for display: inline elements? What about sibling display: inline elements?
+  - What is the established HTML behavior here?
+- Does the height calculator account for floating elements?
+  - I think I should be ignoring floating elements unless they are the height of the parent container. Verify.
