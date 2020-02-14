@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.container > * {
+  flex-grow: 1;
+  flex-shrink: 0;
+  background-color: darkgoldenrod;
+}
+
+.thing-to-resize {
+  overflow-y: auto;
+}
+
+.content + .content {
+  margin-top: 1em;
+}
+
+.sibling-content {
+  background-color: darkgreen;
+}

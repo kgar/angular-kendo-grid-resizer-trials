@@ -20,3 +20,6 @@
   - Currently, I plan to make a directive to do this
 - How to use
   - Decorate kendo grid component with directive appAutoResize and pass in the element ref as the arg
+
+## Progress
+- The height calculation is not taking margin into account. What about padding?
