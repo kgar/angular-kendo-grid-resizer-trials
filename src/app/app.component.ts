@@ -47,10 +47,10 @@ export class AppComponent implements OnInit {
   }
 
   resize() {
-    this.autoResizeGrids.forEach((directive: AutoResizeKendoGridDirective) => {
-      console.log('TODO: TARGET THE ONE GRID YOU WANT ;)');
-      directive.resize();
-    });
+    console.log(this.autoResizeGrids);
+    this.autoResizeGrids.find(
+      (d: AutoResizeKendoGridDirective) => d.appAutoResizeDirectiveId === 'thisGridInParticular',
+    )?.resize();
   }
 
   setGridHeight() {
