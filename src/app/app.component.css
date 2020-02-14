@@ -3,12 +3,6 @@
   flex-direction: row;
   height: 100%;
   padding: 1em;
-  background-color: darkgoldenrod;
-}
-
-.container > * {
-  flex-grow: 1;
-  flex-shrink: 0;
 }
 
 .thing-to-resize {
@@ -21,4 +15,13 @@
 
 .sibling-content {
   background-color: darkgreen;
+}
+
+.controls {
+  flex: 0 0 3em;
+  padding-right: 1em;
+}
+
+.output {
+  flex: 1 0 10em;
 }

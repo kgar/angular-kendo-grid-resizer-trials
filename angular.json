@@ -24,6 +24,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-bootstrap/dist/all.css"
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -80,7 +83,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": "src/ie11-polyfills.js",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -88,6 +91,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-bootstrap/dist/all.css"
+              },
               "src/styles.css"
             ],
             "scripts": []
