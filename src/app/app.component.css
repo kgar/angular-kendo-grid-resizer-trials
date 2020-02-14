@@ -3,6 +3,7 @@
   flex-direction: row;
   height: 100%;
   padding: 1em;
+  background-color: deepskyblue;
 }
 
 .thing-to-resize {
@@ -19,9 +20,15 @@
 
 .controls {
   flex: 0 0 3em;
-  padding-right: 1em;
+  padding: 1em;
+  background-color: gainsboro;
 }
 
 .output {
   flex: 1 0 10em;
+  background-color: gainsboro;
+}
+
+.grid {
+  margin-bottom: 5px;
 }

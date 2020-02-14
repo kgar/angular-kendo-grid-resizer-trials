@@ -7,8 +7,6 @@ import {
   GridComponent,
 } from '@progress/kendo-angular-grid';
 import { sampleData } from './grid-data';
-import { Subject, asyncScheduler } from 'rxjs';
-import { throttle } from 'rxjs/operators';
 import { debounce } from './debounce.decorator';
 
 @Component({
@@ -28,6 +26,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     checkboxOnly: false,
     mode: 'single',
   };
+  gridPaddingTop = 0;
+  gridPaddingBottom = 0;
+  gridMarginTop = 0;
+  gridMarginBottom = 0;
 
   public gridView: GridDataResult = process(this.gridData, this.gridState);
 
@@ -38,13 +40,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     const target = this.thingToResize.wrapper.nativeElement;
     target.style.height = '0px';
     const parent: HTMLElement = target.parentElement;
+    const parentStyle: CSSStyleDeclaration = window.getComputedStyle(parent);
+    const parentIsFlexbox = parentStyle.display === 'flex';
     let siblingHeight = 0;
     let previousSiblingStyle: CSSStyleDeclaration;
     for (let i = 0; i < parent.children.length; i++) {
+      
       const child = parent.children[i] as HTMLElement;
-      if (child === target) {
-        continue;
-      }
 
       const childStyle = window.getComputedStyle(child);
 
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.getNumericPropertyValue(childStyle, 'margin-bottom');
 
       let collapsedMargins = 0;
-      if (this.isCollapsedMargin(previousSiblingStyle, childStyle)) {
+      if (!parentIsFlexbox && this.isCollapsedMargin(previousSiblingStyle, childStyle)) {
         collapsedMargins += Math.min(
           this.getNumericPropertyValue(previousSiblingStyle, 'margin-bottom'),
           this.getNumericPropertyValue(childStyle, 'margin-top'),
@@ -66,8 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     const parentHeight = parent.getBoundingClientRect().height;
-    const targetRemainingHeight = target.getBoundingClientRect().height;
-    const proposedHeight = Math.floor(parentHeight - targetRemainingHeight - siblingHeight);
+    const proposedHeight = Math.floor(parentHeight - siblingHeight);
 
     target.style.height = `${proposedHeight}px`;
   }
@@ -77,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   isCollapsedMargin(first: CSSStyleDeclaration, second: CSSStyleDeclaration): boolean {
-    return first?.display === 'block' && second?.display === 'block';
+    return (first?.display === 'block' || first?.display === 'flex') && (second?.display === 'block' || second?.display === 'flex');
   }
 
   ngAfterViewInit(): void {
@@ -99,7 +100,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   @HostListener('window:resize')
-  @debounce(150)
+  @debounce(100)
   onResize() {
     if (!this.readyToResize) { return; }
     this.resize();

@@ -1,6 +1,4 @@
 # To Do
-- Add padding / margin to the harness for thing-to-resize
-- Retest with various parameters and make corrections to resize algorithm
 - Extract the resize code into the service RemainingHeightCalculator
 - Create a directive to attach to the grid called autoResizeKendoGrid
 - Inject RemainingHeightCalculator into the directive

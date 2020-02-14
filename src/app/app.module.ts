@@ -5,13 +5,16 @@ import { AppComponent } from './app.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { FormsModule } from '@angular/forms';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+
 
 
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, ButtonsModule, BrowserAnimationsModule, GridModule],
+  imports: [BrowserModule, ButtonsModule, BrowserAnimationsModule, GridModule, FormsModule, InputsModule],
   providers: [BrowserModule],
   bootstrap: [AppComponent],
 })
