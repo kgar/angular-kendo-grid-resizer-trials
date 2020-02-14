@@ -1,5 +1,4 @@
 # To Do
-- Extract the resize code into the service RemainingHeightCalculator
 - Create a directive to attach to the grid called autoResizeKendoGrid
 - Inject RemainingHeightCalculator into the directive
 - Add a public resize() function to the directive that uses the service to get the proposed height and resize
