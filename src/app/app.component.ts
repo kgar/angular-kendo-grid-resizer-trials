@@ -36,9 +36,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private heightCalculator: RemainingHeightCalculator) {  }
 
   resize() {
-    const target = this.thingToResize.wrapper.nativeElement;
+    const target = this.thingToResize.wrapper.nativeElement as HTMLElement;
     target.style.height = '0px';
-    const remainingHeight = this.heightCalculator.calculateRemainingHeight(target);
+    const remainingHeight = this.heightCalculator.calculate(target.parentElement);
     target.style.height = `${remainingHeight}px`;
   }
 

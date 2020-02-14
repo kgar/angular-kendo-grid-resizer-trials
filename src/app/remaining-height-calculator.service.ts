@@ -1,42 +1,41 @@
 import { Injectable } from '@angular/core';
 
+/*
+  Service for calculating the remaining height available in a container.
+  Accounts for margin collapsing.
+  To avoid surprise scrollbars for callers, the final height calculation is rounded down to the nearest integer.
+  For this reason, there may be a sliver of remaining space not accounted for.
+*/
 @Injectable({
   providedIn: 'root',
 })
 export class RemainingHeightCalculator {
-  public calculateRemainingHeight(target: HTMLElement): number {
-    const parent: HTMLElement = target.parentElement;
-    const parentStyle: CSSStyleDeclaration = window.getComputedStyle(parent);
+  private calculateOccupiedHeight(container: HTMLElement) {
+    const parentStyle: CSSStyleDeclaration = window.getComputedStyle(container);
     const parentIsFlexbox = parentStyle.display === 'flex';
-    let siblingHeight = 0;
-    let previousSiblingStyle: CSSStyleDeclaration;
+
+    let occupiedHeight = 0;
+    let previousChildStyle: CSSStyleDeclaration;
 
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < parent.children.length; i++) {
-      const child = parent.children[i] as HTMLElement;
-
+    for (let i = 0; i < container.children.length; i++) {
+      const child = container.children[i] as HTMLElement;
       const childStyle = window.getComputedStyle(child);
-
       const margins =
         this.getNumericPropertyValue(childStyle, 'margin-top') +
         this.getNumericPropertyValue(childStyle, 'margin-bottom');
-
       let collapsedMargins = 0;
-      if (!parentIsFlexbox && this.isCollapsedMargin(previousSiblingStyle, childStyle)) {
+      if (!parentIsFlexbox && this.isCollapsedMargin(previousChildStyle, childStyle)) {
         collapsedMargins += Math.min(
-          this.getNumericPropertyValue(previousSiblingStyle, 'margin-bottom'),
+          this.getNumericPropertyValue(previousChildStyle, 'margin-bottom'),
           this.getNumericPropertyValue(childStyle, 'margin-top'),
         );
       }
-
-      siblingHeight += child.getBoundingClientRect().height + margins - collapsedMargins;
-
-      previousSiblingStyle = childStyle;
+      occupiedHeight += child.getBoundingClientRect().height + margins - collapsedMargins;
+      previousChildStyle = childStyle;
     }
 
-    const parentHeight = parent.getBoundingClientRect().height;
-    const proposedHeight = Math.floor(parentHeight - siblingHeight);
-    return proposedHeight;
+    return occupiedHeight;
   }
 
   private getNumericPropertyValue(styleDeclaration: CSSStyleDeclaration, prop: string) {
@@ -48,5 +47,12 @@ export class RemainingHeightCalculator {
       (first?.display === 'block' || first?.display === 'flex') &&
       (second?.display === 'block' || second?.display === 'flex')
     );
+  }
+
+  public calculate(container: HTMLElement): number {
+    const occupiedHeight = this.calculateOccupiedHeight(container);
+    const parentHeight = container.getBoundingClientRect().height;
+    const proposedHeight = Math.floor(parentHeight - occupiedHeight);
+    return proposedHeight;
   }
 }
