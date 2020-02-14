@@ -21,7 +21,7 @@
 .controls {
   flex: 0 0 3em;
   padding: 1em;
-  background-color: gainsboro;
+  background-color: white;
 }
 
 .output {
@@ -31,4 +31,12 @@
 
 .grid {
   margin-bottom: 5px;
+}
+
+.grid-height-input {
+  display: block;
+}
+
+.controls > * {
+  margin-bottom: 1em;
 }

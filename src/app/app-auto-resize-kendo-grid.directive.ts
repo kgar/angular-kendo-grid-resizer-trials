@@ -8,7 +8,11 @@ import { debounce } from './debounce.decorator';
 })
 export class AutoResizeKendoGridDirective implements AfterViewInit {
   readyToResize = false;
+  /* Optional ID for helping find the specific directive instance associated with a particular grid */
+  @Input() appAutoResizeDirectiveId;
+  /* Optional override for toggling whether the resize operation triggers whenever the browser window resizes */
   @Input() appAutoResizeTriggerOnWindowResize = true;
+  /* Optional override for toggling whether the resize operation triggers during the ngAfterViewInit lifecycle event */
   @Input() appAutoResizeTriggerAfterViewInit = true;
 
   constructor(private grid: GridComponent, private heightCalculator: RemainingHeightCalculator) {}
@@ -39,10 +43,4 @@ export class AutoResizeKendoGridDirective implements AfterViewInit {
 
     this.resize();
   }
-}
-
-interface KendoGridAutoResizeOptions {
-  debounceDuration?: number;
-  triggerOnWindowResize?: boolean;
-  triggerAfterViewInit?: boolean;
 }

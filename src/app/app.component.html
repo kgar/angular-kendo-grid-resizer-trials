@@ -1,6 +1,12 @@
 <div class="container">
   <div class="controls">
-    <button (click)="resize()" kendoButton [primary]="true">Resize</button>
+    <div style="text-align: right;">
+      <input type="text" name="height" id="grid-height-input" [(ngModel)]="gridHeight" kendoTextBox style="display: block;" />
+      <button (click)="setGridHeight()" style="margin-top: 0.5em;" kendoButton [primary]="true">Set Height</button>
+    </div>
+    <div style="text-align: right;">
+      <button (click)="resize()" kendoButton>Resize</button>
+    </div>
   </div>
   <div class="output">
     <div class="sibling-content content">Causing trouble!</div>
@@ -18,6 +24,7 @@
       (dataStateChange)="dataStateChange($event)"
       class="grid content"
       appAutoResizeKendoGrid
+      #myGrid
     >
       <kendo-grid-column field="ProductID" title="ID" width="40"> </kendo-grid-column>
       <kendo-grid-column field="ProductName" title="Name" width="250"> </kendo-grid-column>

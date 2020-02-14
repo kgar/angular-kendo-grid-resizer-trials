@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild } from '@angular/core';
 import { State, process } from '@progress/kendo-data-query';
 import {
   SelectableSettings,
   GridDataResult,
   DataStateChangeEvent,
+  GridComponent,
 } from '@progress/kendo-angular-grid';
 import { sampleData } from './grid-data';
+import { AutoResizeKendoGridDirective } from './app-auto-resize-kendo-grid.directive';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,8 @@ import { sampleData } from './grid-data';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  @ViewChildren(AutoResizeKendoGridDirective) autoResizeGrids;
+  @ViewChild('myGrid') grid: GridComponent;
   gridData: any[] = [];
   gridState: State = {
     skip: 0,
@@ -24,6 +28,7 @@ export class AppComponent implements OnInit {
     checkboxOnly: false,
     mode: 'single',
   };
+  gridHeight: number;
 
   public gridView: GridDataResult = process(this.gridData, this.gridState);
 
@@ -42,6 +47,13 @@ export class AppComponent implements OnInit {
   }
 
   resize() {
-    alert('Oh no! This needs to be reimplemented! But how??????');
+    this.autoResizeGrids.forEach((directive: AutoResizeKendoGridDirective) => {
+      console.log('TODO: TARGET THE ONE GRID YOU WANT ;)');
+      directive.resize();
+    });
+  }
+
+  setGridHeight() {
+    this.grid.wrapper.nativeElement.style.height = `${this.gridHeight}px`;
   }
 }
