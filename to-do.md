@@ -1,0 +1,15 @@
+# To Do
+- Add window resize to the test harness and vet that it resizes
+- Throttle the resize handler to 15fps
+- Add padding / margin to the harness for thing-to-resize
+- Retest with various parameters
+- Set up Kendo grid dependencies
+- Replace the div thing-to-resize with a grid
+- Vet that the grid can be resized with a button click
+- Extract the resize code into the service RemainingHeightCalculator
+- Create a directive to attach to the grid called autoResizeKendoGrid
+- Inject RemainingHeightCalculator into the directive
+- Add a public resize() function to the directive that uses the service to get the proposed height and resize
+- Only allow resize() to work once ngAfterViewInit has fired
+- Expose a setting for hooking resize() into the window's resize event at 15fps
+- 

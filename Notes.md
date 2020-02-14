@@ -2,6 +2,7 @@
 - @ViewChild can provide an ElementRef, which can be used to get the nativeElement
   - For Kendo Grids, you get a KendoGridComponent, which has a wrapper, which has a nativeElement
 - @ViewChild fields are available after ngAfterViewInit() (AfterViewInit)
+- @ViewChildren can allow you to snag the directive by type, allowing us to programmatically call the resize() function
 - Element.getBoundingClientRect() will help get the outer height of an element: https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
 - For listening to window resize, consider the HostListener approach https://angular.io/api/core/HostListener
 - The algorithm for now is
