@@ -10,19 +10,33 @@ export class AppComponent {
 
   resize() {
     console.log(this.thingToResize);
-    let target = this.thingToResize.nativeElement;
+    const target = this.thingToResize.nativeElement;
     target.style.height = '0px';
-    let parent: HTMLElement = target.parentElement;
+    const parent: HTMLElement = target.parentElement;
     let siblingHeight = 0;
     for (let i = 0; i < parent.children.length; i++) {
-      let child: Element = parent.children[i];
-      if (child === target) continue;
+      const child = parent.children[i] as HTMLElement;
+      if (child === target) {
+        continue;
+      }
 
-      siblingHeight += child.getBoundingClientRect().height;
+      const childStyle = window.getComputedStyle(child);
+
+      const margins =
+        this.getNumericPropertyValue(childStyle, 'margin-top') +
+        this.getNumericPropertyValue(childStyle, 'margin-bottom');
+
+      siblingHeight += child.getBoundingClientRect().height + margins;
     }
-    let parentHeight = parent.getBoundingClientRect().height;
-    let targetRemainingHeight = target.getBoundingClientRect().height;
-    let proposedHeight = Math.floor(parentHeight - targetRemainingHeight - siblingHeight);
+
+    const parentHeight = parent.getBoundingClientRect().height;
+    const targetRemainingHeight = target.getBoundingClientRect().height;
+    const proposedHeight = Math.floor(parentHeight - targetRemainingHeight - siblingHeight);
+
     target.style.height = `${proposedHeight}px`;
+  }
+
+  getNumericPropertyValue(styleDeclaration: CSSStyleDeclaration, prop: string) {
+    return parseInt(styleDeclaration.getPropertyValue(prop), 10);
   }
 }

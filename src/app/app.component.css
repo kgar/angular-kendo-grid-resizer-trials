@@ -2,12 +2,13 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+  padding: 1em;
+  background-color: darkgoldenrod;
 }
 
 .container > * {
   flex-grow: 1;
   flex-shrink: 0;
-  background-color: darkgoldenrod;
 }
 
 .thing-to-resize {
