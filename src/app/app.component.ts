@@ -48,9 +48,10 @@ export class AppComponent implements OnInit {
 
   resize() {
     console.log(this.autoResizeGrids);
+    console.log(this.grid);
     this.autoResizeGrids.find(
       (d: AutoResizeKendoGridDirective) => d.appAutoResizeDirectiveId === 'thisGridInParticular',
-    )?.resize();
+    )?.resizeAsync();
   }
 
   setGridHeight() {

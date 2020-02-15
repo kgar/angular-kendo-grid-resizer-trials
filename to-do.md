@@ -1,14 +1,16 @@
 # To Do
-- Add a public resize() function to the directive that uses the service to get the proposed height and resize
-- Add Height input and Set Height button to arbitrarily change grid height
-- Only allow resize() to work once ngAfterViewInit has fired
-- Provide an options object parameter for the directive
-  - debounceDuration?: number = 300
-  - resizeWithWindow?: boolean = true
-  - resizeAfterInit?: boolean = true
-- Test and verify that HostListener is not going to keep re-subscribing each time the 
+- Put the grid into its own component
+- Put the content around the grid into two other components
+- Compose the components in the output div
+- Apply layout so that the component selectors are flex children in column orientation
+- Make resizeAsync() return a promise
+- Make the caller resizeAsync() call typesafe
+- Make the grid aspect of the resize directive element neutral
+
+# Questions
 - Does the height calculator account for content being display: none?
 - Does the height calculator account for display: inline elements? What about sibling display: inline elements?
   - What is the established HTML behavior here?
 - Does the height calculator account for floating elements?
   - I think I should be ignoring floating elements unless they are the height of the parent container. Verify.
+- Can I extract the single-grid resize call to some kind of helper or typesafe method?
