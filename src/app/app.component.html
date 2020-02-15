@@ -23,8 +23,7 @@
       filterable="menu"
       (dataStateChange)="dataStateChange($event)"
       class="grid content"
-      appAutoResizeKendoGrid
-      appAutoResizeDirectiveId="thisGridInParticular"
+      appAutoResizer="thisGridInParticular"
       #myGrid
     >
       <kendo-grid-column field="ProductID" title="ID" width="40"> </kendo-grid-column>

@@ -1,11 +1,17 @@
 # To Do
+- Make decorator called @AvailableResizers()
+  - get(id?: string): ResizerService
+  - getAll(): ResizerService[]
+  - ResizerService: class
+    - resize(): void
+    - resizeAsync(): Promise\<void\>
+    - resizerId getter: string
+- Use decorator in caller
 - Put the grid into its own component
 - Put the content around the grid into two other components
 - Compose the components in the output div
 - Apply layout so that the component selectors are flex children in column orientation
 - Make resizeAsync() return a promise
-- Make the caller resizeAsync() call typesafe
-- Make the grid aspect of the resize directive element neutral
 
 # Questions
 - Does the height calculator account for content being display: none?

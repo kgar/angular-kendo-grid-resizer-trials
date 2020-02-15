@@ -7,7 +7,7 @@ import {
   GridComponent,
 } from '@progress/kendo-angular-grid';
 import { sampleData } from './grid-data';
-import { AutoResizeKendoGridDirective } from './app-auto-resize-kendo-grid.directive';
+import { AutoResizerDirective } from './app-auto-resize-kendo-grid.directive';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { AutoResizeKendoGridDirective } from './app-auto-resize-kendo-grid.direc
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  @ViewChildren(AutoResizeKendoGridDirective) autoResizeGrids;
+  @ViewChildren(AutoResizerDirective) autoResizeGrids;
   @ViewChild('myGrid') grid: GridComponent;
   gridData: any[] = [];
   gridState: State = {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     console.log(this.autoResizeGrids);
     console.log(this.grid);
     this.autoResizeGrids.find(
-      (d: AutoResizeKendoGridDirective) => d.appAutoResizeDirectiveId === 'thisGridInParticular',
+      (d: AutoResizerDirective) => d.instanceId === 'thisGridInParticular',
     )?.resizeAsync();
   }
 
