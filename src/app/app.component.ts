@@ -7,7 +7,7 @@ import {
   GridComponent,
 } from '@progress/kendo-angular-grid';
 import { sampleData } from './grid-data';
-import { AutoResizerTriggerService } from './auto-resizer-trigger.service';
+import { AutoResizerRelayService } from './auto-resizer-trigger.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   public gridView: GridDataResult = process(this.gridData, this.gridState);
 
-  constructor(private resizer: AutoResizerTriggerService) {}
+  constructor(private resizer: AutoResizerRelayService) {}
 
   ngOnInit(): void {
     setTimeout(() => {

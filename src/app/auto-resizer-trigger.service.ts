@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AutoResizerTriggerService {
+export class AutoResizerRelayService {
 
   resize(...ids: string[]) {
     this.triggerResize(ids, false);
