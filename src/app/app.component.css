@@ -14,10 +14,6 @@
   margin-top: 1em;
 }
 
-.sibling-content {
-  background-color: darkgreen;
-}
-
 .controls {
   flex: 0 0 3em;
   padding: 1em;
@@ -27,6 +23,12 @@
 .output {
   flex: 1 0 10em;
   background-color: gainsboro;
+  display: flex;
+  flex-direction: column;
+}
+
+app-grid-to-resize {
+  flex-grow: 1;
 }
 
 .grid {

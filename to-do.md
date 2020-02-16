@@ -1,22 +1,7 @@
 # To Do
-- Make decorator called @AvailableResizers()
-  - get(id?: string): ResizerService
-  - getAll(): ResizerService[]
-  - ResizerService: class
-    - resize(): void
-    - resizeAsync(): Promise\<void\>
-    - resizerId getter: string
-- Use decorator in caller
-- Put the grid into its own component
-- Put the content around the grid into two other components
-- Compose the components in the output div
-- Apply layout so that the component selectors are flex children in column orientation
-- Make resizeAsync() return a promise
+- Set up display: none content, both with stylesheet and with inline styles. Ensure the service does not accumulate occupied height for content that does not take up vertical space.
+- Set up float div and teach height service to ignore it
+- Set up 5 single-letter spans and 1 2-line span all side-by-side, and update the height service to account for this
+- 
 
 # Questions
-- Does the height calculator account for content being display: none?
-- Does the height calculator account for display: inline elements? What about sibling display: inline elements?
-  - What is the established HTML behavior here?
-- Does the height calculator account for floating elements?
-  - I think I should be ignoring floating elements unless they are the height of the parent container. Verify.
-- Can I extract the single-grid resize call to some kind of helper or typesafe method?

@@ -8,13 +8,16 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { FormsModule } from '@angular/forms';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { AutoResizerDirective } from './app-auto-resize-kendo-grid.directive';
+import { GridToResizeComponent } from './grid-to-resize/grid-to-resize.component';
+import { ContentAboveGridComponent } from './content-above-grid/content-above-grid.component';
+import { ContentBelowGridComponent } from './content-below-grid/content-below-grid.component';
 
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, AutoResizerDirective],
+  declarations: [AppComponent, AutoResizerDirective, GridToResizeComponent, ContentAboveGridComponent, ContentBelowGridComponent],
   imports: [BrowserModule, ButtonsModule, BrowserAnimationsModule, GridModule, FormsModule, InputsModule],
   providers: [BrowserModule],
   bootstrap: [AppComponent],

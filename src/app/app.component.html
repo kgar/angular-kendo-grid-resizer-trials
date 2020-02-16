@@ -13,37 +13,8 @@
     </div>
   </div>
   <div class="output">
-    <div class="sibling-content content">Causing trouble!</div>
-    <kendo-grid
-      [height]="410"
-      [data]="gridView"
-      [pageSize]="gridState.take"
-      [skip]="gridState.skip"
-      [pageable]="true"
-      [sortable]="{ allowUnsort: true, mode: 'single' }"
-      [sort]="gridState.sort"
-      [selectable]="gridSelectionSettings"
-      [resizable]="true"
-      filterable="menu"
-      (dataStateChange)="dataStateChange($event)"
-      class="grid content"
-      appAutoResizer="thisGridInParticular"
-      #myGrid
-    >
-      <kendo-grid-column field="ProductID" title="ID" width="40"> </kendo-grid-column>
-      <kendo-grid-column field="ProductName" title="Name" width="250"> </kendo-grid-column>
-      <kendo-grid-column field="Category.CategoryName" title="Category"> </kendo-grid-column>
-      <kendo-grid-column field="UnitPrice" title="Price" width="80"> </kendo-grid-column>
-      <kendo-grid-column field="UnitsInStock" title="In stock" width="80"> </kendo-grid-column>
-      <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
-        <ng-template kendoGridCellTemplate let-dataItem>
-          <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
-        </ng-template>
-      </kendo-grid-column>
-    </kendo-grid>
-    <p class="sibling-content content">Hello, I'm some sibling content!</p>
-    <div class="sibling-content content">Hello, I'm some sibling content!</div>
-    <p class="sibling-content content">Hello, I'm some sibling content!</p>
-    <p class="sibling-content content">Hello, I'm some sibling content!</p>
+    <app-content-above-grid class="content"></app-content-above-grid>
+    <app-grid-to-resize class="content"></app-grid-to-resize>
+    <app-content-below-grid class="content"></app-content-below-grid>
   </div>
 </div>
