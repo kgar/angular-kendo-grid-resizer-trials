@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 /*
   Service for calculating the remaining height available in a container.
-  Accounts for margin collapsing.
+  Accounts for margin collapsing. Ignores floating elements.
   To avoid surprise scrollbars for callers, the final height calculation is rounded down to the nearest integer.
   For this reason, there may be a sliver of remaining space not accounted for.
 */
@@ -21,17 +21,26 @@ export class RemainingHeightCalculator {
     for (let i = 0; i < container.children.length; i++) {
       const child = container.children[i] as HTMLElement;
       const childStyle = window.getComputedStyle(child);
+
+      if (this.isFloatingElement(childStyle)) {
+        continue;
+      }
+
       const margins =
         this.getNumericPropertyValue(childStyle, 'margin-top') +
         this.getNumericPropertyValue(childStyle, 'margin-bottom');
+
       let collapsedMargins = 0;
+
       if (!parentIsFlexbox && this.isCollapsedMargin(previousChildStyle, childStyle)) {
         collapsedMargins += Math.min(
           this.getNumericPropertyValue(previousChildStyle, 'margin-bottom'),
           this.getNumericPropertyValue(childStyle, 'margin-top'),
         );
       }
+
       occupiedHeight += child.getBoundingClientRect().height + margins - collapsedMargins;
+
       previousChildStyle = childStyle;
     }
 
@@ -47,6 +56,11 @@ export class RemainingHeightCalculator {
       (first?.display === 'block' || first?.display === 'flex') &&
       (second?.display === 'block' || second?.display === 'flex')
     );
+  }
+
+  isFloatingElement(style: CSSStyleDeclaration) {
+    const floatValue = style.float.toLocaleLowerCase();
+    return floatValue === 'left' || floatValue === 'right';
   }
 
   public calculate(container: HTMLElement): number {
