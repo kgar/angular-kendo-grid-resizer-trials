@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { State, process } from '@progress/kendo-data-query';
 import {
   SelectableSettings,
@@ -7,7 +7,7 @@ import {
   GridComponent,
 } from '@progress/kendo-angular-grid';
 import { sampleData } from './grid-data';
-import { AutoResizerDirective } from './app-auto-resize-kendo-grid.directive';
+import { AutoResizerTriggerService } from './auto-resizer-trigger.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,6 @@ import { AutoResizerDirective } from './app-auto-resize-kendo-grid.directive';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  @ViewChildren(AutoResizerDirective) autoResizeGrids;
   @ViewChild('myGrid') grid: GridComponent;
   gridData: any[] = [];
   gridState: State = {
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
 
   public gridView: GridDataResult = process(this.gridData, this.gridState);
 
-  readyToResize = false;
+  constructor(private resizer: AutoResizerTriggerService) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -47,11 +46,15 @@ export class AppComponent implements OnInit {
   }
 
   resize() {
-    console.log(this.autoResizeGrids);
-    console.log(this.grid);
-    this.autoResizeGrids.find(
-      (d: AutoResizerDirective) => d.instanceId === 'thisGridInParticular',
-    )?.resizeAsync();
+    this.resizer.resizeAsync('thisGridInParticular');
+  }
+
+  resizeAll() {
+    this.resizer.resizeAsync();
+  }
+
+  resizeWrongId() {
+    this.resizer.resizeAsync('someOtherThingThatDoesNotExist');
   }
 
   setGridHeight() {

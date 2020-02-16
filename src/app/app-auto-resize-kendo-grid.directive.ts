@@ -1,6 +1,7 @@
 import { Directive, Input, HostListener, OnInit, ElementRef } from '@angular/core';
 import { RemainingHeightCalculator } from './remaining-height-calculator.service';
 import { debounce } from './debounce.decorator';
+import { AutoResizerEvent } from './AutoResizerEvent';
 
 @Directive({
   selector: '[appAutoResizer]',
@@ -23,15 +24,17 @@ export class AutoResizerDirective implements OnInit {
     this.resizeAsync();
   }
 
-  public resize(): void {
-    if (!this.ref) { return; }
+  resize(): void {
+    if (!this.ref) {
+      return;
+    }
     const target = this.ref.nativeElement as HTMLElement;
     target.style.height = '0px';
     const remainingHeight = this.heightCalculator.calculate(target.parentElement);
     target.style.height = `${remainingHeight}px`;
   }
 
-  public resizeAsync() {
+  resizeAsync() {
     setTimeout(() => {
       this.resize();
     }, 0);
@@ -45,5 +48,16 @@ export class AutoResizerDirective implements OnInit {
     }
 
     this.resizeAsync();
+  }
+
+  @HostListener('window:AppAutoResizer_Resize', ['$event'])
+  onResizeRequested(event: CustomEventInit<AutoResizerEvent>) {
+    const isResizeAll = event.detail.ids.length === 0;
+    const isResizeRequestForThisDirective = event.detail.ids.indexOf(this.instanceId) >= 0;
+    const shouldResize = isResizeAll || isResizeRequestForThisDirective;
+
+    if (shouldResize) {
+      event.detail.isAsync ? this.resizeAsync() : this.resize();
+    }
   }
 }
