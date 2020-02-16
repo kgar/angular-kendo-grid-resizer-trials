@@ -7,7 +7,7 @@ import {
   GridComponent,
 } from '@progress/kendo-angular-grid';
 import { sampleData } from './grid-data';
-import { AutoResizerRelayService } from './auto-resizer-trigger.service';
+import { AutoResizerRelayService } from './auto-resizer-relay.service';
 
 @Component({
   selector: 'app-root',
