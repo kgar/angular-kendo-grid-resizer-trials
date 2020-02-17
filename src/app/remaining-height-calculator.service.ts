@@ -27,19 +27,19 @@ export class RemainingHeightCalculator {
       }
 
       const margins =
-        this.getNumericPropertyValue(childStyle, 'margin-top') +
-        this.getNumericPropertyValue(childStyle, 'margin-bottom');
+        Math.ceil(this.getNumericPropertyValue(childStyle, 'margin-top')) +
+        Math.ceil(this.getNumericPropertyValue(childStyle, 'margin-bottom'));
 
       let collapsedMargins = 0;
 
       if (!parentIsFlexbox && this.isCollapsedMargin(previousChildStyle, childStyle)) {
         collapsedMargins += Math.min(
-          this.getNumericPropertyValue(previousChildStyle, 'margin-bottom'),
-          this.getNumericPropertyValue(childStyle, 'margin-top'),
+          Math.floor(this.getNumericPropertyValue(previousChildStyle, 'margin-bottom')),
+          Math.floor(this.getNumericPropertyValue(childStyle, 'margin-top')),
         );
       }
 
-      occupiedHeight += child.getBoundingClientRect().height + margins - collapsedMargins;
+      occupiedHeight += Math.ceil(child.getBoundingClientRect().height) + margins - collapsedMargins;
 
       previousChildStyle = childStyle;
     }
@@ -65,8 +65,8 @@ export class RemainingHeightCalculator {
 
   public calculate(container: HTMLElement): number {
     const occupiedHeight = this.calculateOccupiedHeight(container);
-    const parentHeight = container.getBoundingClientRect().height;
-    const proposedHeight = Math.floor(parentHeight - occupiedHeight);
+    const parentHeight = Math.floor(container.getBoundingClientRect().height);
+    const proposedHeight = parentHeight - occupiedHeight;
     return proposedHeight;
   }
 }
